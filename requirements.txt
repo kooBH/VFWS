@@ -1,6 +1,7 @@
-torch==1.4
+torch==1.5.1
 numpy
 pandas
+llvmlite --index-url https://pypi.anaconda.org/sklam/simple
 librosa
 
 
