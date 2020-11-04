@@ -37,7 +37,7 @@ def mix(hp, audio, target, noise, num,train):
     w1, _ = librosa.effects.trim(w1, top_db=20)
     
 
-    # For batched trainnig fix L value
+    # For batched trainig fix L value
     # fit audio to `hp.data.audio_len` seconds.
     # if merged audio is shorter than `L`, discard it
     L = int(srate * hp.data.audio_len)
