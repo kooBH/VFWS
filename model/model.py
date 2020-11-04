@@ -47,7 +47,7 @@ class VFWS(nn.Module):
                 )
         #TODO fix args
         self.lstm = nn.LSTM(
-                8*hp.audio.num_freq + hp.embedder.emb_dim,
+                8*hp.audio.num_freq,
                 hp.model.lstm_dim,
                 batch_first=True,
                 bidirectional=True)
