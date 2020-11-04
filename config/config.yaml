@@ -1,0 +1,34 @@
+audio:
+  n_fft: 1200
+  num_freq: 601 # n_fft//2 + 1
+  sample_rate: 16000
+  hop_length: 160
+  win_length: 400
+  min_level_db: -100.0
+  ref_level_db: 20.0
+  preemphasis: 0.97
+  power: 0.30
+---
+data:
+  norm_dir: '/home/nas/user/kbh/Librispeech/norm/'
+  vfws_dir: '/home/nas/user/kbh/Librispeech/vfws/'
+  noise_dir: '/home/nas/user/kbh/Chime4/noise/'
+  audio_len: 3.0
+---
+form:
+  input: '*-norm.wav'
+  target:
+    wav: '*-target.wav'
+    mag: '*-target.pt'
+  mixed:
+    wav: '*-mixed.wav'
+    mag: '*-mixed.pt'
+---
+embedder: # d-vector embedder. not gonna use it
+  num_mels: 40
+  n_fft: 512
+  emb_dim: 256
+  lstm_hidden: 768
+  lstm_layers: 3
+  window: 80
+  stride: 40
