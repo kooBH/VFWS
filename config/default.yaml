@@ -1,3 +1,5 @@
+gpu: 'cuda:0'
+---
 train:
   epoch: 20
   batch_size: 8
