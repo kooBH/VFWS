@@ -14,7 +14,7 @@ def train(args, pt_dir, chkpt_path, trainloader, testloader, writer, logger, hp,
     audio = Audio(hp)
     model = VFWS(hp).cuda()
 
-    torch.cuda.set_device("cuda:1")
+    torch.cuda.set_device(hp.gpu)
 
 #    model = VoiceFilter(hp)
 #    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

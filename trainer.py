@@ -13,7 +13,6 @@ import torch
 
 if __name__ == '__main__':
 
-    torch.cuda.set_device('cuda:1')
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--base_dir', type=str, default='.',
@@ -27,6 +26,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     hp = HParam(args.config)
+
+    torch.cuda.set_device(hp.gpu)
+
     with open(args.config, 'r') as f:
         # store hparams as string
         hp_str = ''.join(f.readlines())
