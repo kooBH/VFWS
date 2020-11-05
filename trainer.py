@@ -13,6 +13,8 @@ import torch
 
 if __name__ == '__main__':
 
+    torch.cuda.set_device('cuda:1')
+
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--base_dir', type=str, default='.',
                         help="Root directory of run.")
@@ -47,10 +49,6 @@ if __name__ == '__main__':
         ]
     )
     logger = logging.getLogger()
-
-    if hp.data.train_dir == '' or hp.data.test_dir == '':
-        logger.error("train_dir, test_dir cannot be empty.")
-        raise Exception("Please specify directories of data in %s" % args.config)
 
     writer = MyWriter(hp, log_dir)
 

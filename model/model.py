@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class VFWS(nn.Module):
-    def __init__(self):
+    def __init__(self,hp):
         super(VFWS,self).__init__()
         self.conv = nn.Sequential(
                 # cnn1
@@ -45,7 +45,6 @@ class VFWS(nn.Module):
                 nn.Conv2d(64, 8, kernel_size=(1, 1), dilation=(1, 1)), 
                 nn.BatchNorm2d(8), nn.ReLU(),
                 )
-        #TODO fix args
         self.lstm = nn.LSTM(
                 8*hp.audio.num_freq,
                 hp.model.lstm_dim,
@@ -54,4 +53,27 @@ class VFWS(nn.Module):
 
         self.fc1 = nn.Linear(2*hp.model.lstm_dim, hp.model.fc1_dim)
         self.fc2 = nn.Linear(hp.model.fc1_dim, hp.model.fc2_dim)      
+
+
+    def forward(self, x):
+        # x: [B, T, num_freq]
+        x = x.unsqueeze(1)
+        # x: [B, 1, T, num_freq]
+        x = self.conv(x)
+        # x: [B, 8, T, num_freq]
+        x = x.transpose(1, 2).contiguous()
+        # x: [B, T, 8, num_freq]
+        x = x.view(x.size(0), x.size(1), -1)
+        # x: [B, T, 8*num_freq]
+
+        ## for data parallel
+        # self.lstm.flatten_parameters()
+
+        x, _ = self.lstm(x) # [B, T, lstm_dim*2] since bidrectional
+        x = F.relu(x)
+        x = self.fc1(x) # x: [B, T, fc1_dim]
+        x = F.relu(x)
+        x = self.fc2(x) # x: [B, T, fc2_dim], fc2_dim == num_freq
+        x = torch.sigmoid(x)
+        return x
 

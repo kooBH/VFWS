@@ -130,3 +130,7 @@ dmypy.json
 
 # virtual env
 /ENV
+
+# temporal swap file
+*.swp
+

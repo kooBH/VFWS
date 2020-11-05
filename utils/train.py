@@ -7,15 +7,15 @@ import traceback
 from .adabound import AdaBound
 from .audio import Audio
 from .evaluation import validate
-from model.model import VoiceFilter
-from model.embedder import SpeechEmbedder
+from model.model import VFWS
 
 
 def train(args, pt_dir, chkpt_path, trainloader, testloader, writer, logger, hp, hp_str):
     audio = Audio(hp)
-    model = VoiceFilter(hp).cuda()
+    model = VFWS(hp).cuda()
 
-### Multi-GPU
+    torch.cuda.set_device("cuda:1")
+
 #    model = VoiceFilter(hp)
 #    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #    model = nn.DataParallel(model)

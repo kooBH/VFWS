@@ -1,7 +1,12 @@
 torch==1.5.1
+numba==0.48
+tqdm
 numpy
-pandas
-llvmlite --index-url https://pypi.anaconda.org/sklam/simple
-librosa
+pyyaml
+librosa==0.7
+mir_eval
+matplotlib
+tensorboardX
+Pillow
 
 
