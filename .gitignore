@@ -134,3 +134,6 @@ dmypy.json
 # temporal swap file
 *.swp
 
+# client files
+*.yaml
+*.sh
