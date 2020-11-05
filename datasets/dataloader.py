@@ -24,7 +24,7 @@ def create_dataloader(hp, train):
         return batch
 
     if train:
-        return DataLoader(dataset=VFDataset(hp, True),
+        return DataLoader(dataset=VFWSDataset(hp, True),
                           batch_size=hp.train.batch_size,
                           shuffle=True,
                           num_workers=hp.train.num_workers,
@@ -33,12 +33,12 @@ def create_dataloader(hp, train):
                           drop_last=True,
                           sampler=None)
     else:
-        return DataLoader(dataset=VFDataset(hp, False),
+        return DataLoader(dataset=VFWSDataset(hp, False),
                           collate_fn=test_collate_fn,
                           batch_size=1, shuffle=False, num_workers=0)
 
 
-class VFDataset(Dataset):
+class VFWSDataset(Dataset):
     def __init__(self, hp, train):
         def find_all(data_dir,file_format):
             return sorted(glob.glob(os.path.join(data_dir, file_format)))
@@ -59,7 +59,7 @@ class VFDataset(Dataset):
         self.audio = Audio(hp)
 
     def __len__(self):
-        return len(self.dvec_list)
+        return len(self.target_mag_list)
 
     def __getitem__(self, idx):
         if self.train :  # need to be fast

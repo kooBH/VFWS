@@ -1,13 +1,16 @@
-audio:
-  n_fft: 1200
-  num_freq: 601 # n_fft//2 + 1
-  sample_rate: 16000
-  hop_length: 160
-  win_length: 400
-  min_level_db: -100.0
-  ref_level_db: 20.0
-  preemphasis: 0.97
-  power: 0.30
+train:
+  epoch: 20
+  batch_size: 8
+  num_workers: 16
+  optimizer: 'adam'
+  adam: 0.001
+  adabound:
+    initial: 0.001
+    final: 0.05
+  summary_interval: 10
+  validation_interval: 100
+  checkpoint_interval: 1000
+
 ---
 data:
   norm_dir: '/home/nas/user/kbh/Librispeech/norm/'
@@ -32,3 +35,15 @@ embedder: # d-vector embedder. not gonna use it
   lstm_layers: 3
   window: 80
   stride: 40
+---
+audio:
+  n_fft: 1200
+  num_freq: 601 # n_fft//2 + 1
+  sample_rate: 16000
+  hop_length: 160
+  win_length: 400
+  min_level_db: -100.0
+  ref_level_db: 20.0
+  preemphasis: 0.97
+  power: 0.30
+
