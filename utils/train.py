@@ -54,7 +54,13 @@ def train(args, pt_dir, chkpt_path, trainloader, testloader, writer, logger, hp,
         logger.info("Starting new training run")
 
     try:
-        criterion = nn.MSELoss()
+        if hp.loss.type == 'MSE' :
+            criterion = nn.MSELoss()
+        elif hp.loss.type == 'L1' :
+            criterion = nn.L1Loss()
+        else : # default
+            criterion = nn.MSELoss()
+
         for i_epoch in range(hp.train.epoch):
             model.train()
             for target_mag, mixed_mag in trainloader:
@@ -66,6 +72,15 @@ def train(args, pt_dir, chkpt_path, trainloader, testloader, writer, logger, hp,
 
                 # output = torch.pow(torch.clamp(output, min=0.0), hp.audio.power)
                 # target_mag = torch.pow(torch.clamp(target_mag, min=0.0), hp.audio.power)
+
+                output = torch.pow(output,2)
+                target_mag = torch.pow(target_mag,2)
+
+
+                output = 10*torch.log10(output+1)
+                target_mag= 10*torch.log10(target_mag+1)
+
+
                 loss = criterion(output, target_mag)
 
                 optimizer.zero_grad()
@@ -80,7 +95,8 @@ def train(args, pt_dir, chkpt_path, trainloader, testloader, writer, logger, hp,
                 step += 1
 
                 loss = loss.item()
-                if loss > 1e8 or math.isnan(loss):
+                #if loss > 1e8 or math.isnan(loss):
+                if math.isnan(loss):
                     logger.error("Loss exploded to %.02f at step %d!" % (loss, step))
                     raise Exception("Loss exploded")
 
