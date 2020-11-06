@@ -13,6 +13,9 @@ train:
   validation_interval: 100
   checkpoint_interval: 1000
 ---
+loss:
+  type: 'L1' # MSE, L1
+---
 scheduler:
   type: 'Plateau'
   oneCycle:
