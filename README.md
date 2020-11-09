@@ -1,12 +1,13 @@
-VFWS : VoiceFilter Without Speaker
+# VFWS : VoiceFilter Without Speaker
 
-# Conclusion
-Not Good
+
 
 Using Voicefilter to noise surppression only  without targeted speaker embedding.
 
 <img src=https://github.com/kooBH/VFWS/blob/master/resources/VFWS.PNG>
 
+# Conclusion
+Not Good
 
 #  Result
 
