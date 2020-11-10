@@ -15,7 +15,7 @@ log magnitude, L1 loss, oneCycleLR, step 40k, epoch 3
 <img src=https://github.com/kooBH/VFWS/blob/master/resources/VFWS_tensorboard.PNG>
 <img src=https://github.com/kooBH/VFWS/blob/master/resources/VFWS_v2_step40k.gif>
 
-Mask for speech is not solid, smudging speech TF.
+Smudging harmonic components.
 
 Based on https://arxiv.org/abs/1810.04826  
 and  https://github.com/mindslab-ai/voicefilter
